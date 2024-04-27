@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.controller;
 
+import com.att.tdp.bisbis10.model.Dish;
 import com.att.tdp.bisbis10.model.Restaurant;
 import com.att.tdp.bisbis10.service.RestaurantService;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class RestaurantController {
     }
 
     @GetMapping("{id}")
-    public Map getRestaurantDetails(@PathVariable("id") String id) {
+    public Restaurant getRestaurantDetails(@PathVariable("id") String id) {
         return restaurantService.getRestaurant(id);
     }
 
@@ -40,6 +41,26 @@ public class RestaurantController {
         restaurantService.createRestaurant(restaurant);
     }
 
+    @ResponseStatus(code = HttpStatus.CREATED)
+    @PostMapping("{id}/dishes")
+    public void createRestaurantDish(@PathVariable("id") String restaurantId, @RequestBody Dish dish) {
+        restaurantService.createRestaurantDish(restaurantId, dish);
+    }
+
+    @ResponseStatus(code = HttpStatus.OK)
+    @GetMapping("{id}/dishes")
+    public List<Dish> GetRestaurantDish(@PathVariable("id") String restaurantId) {
+        List<Dish> dishes = restaurantService.getRestaurantDishes(restaurantId);
+
+        return dishes;
+    }
+
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    @DeleteMapping("{id}/dishes/{dishId}")
+    public void DeleteRestaurantDish(@PathVariable("id") String restaurantId, @PathVariable("dishId") String dishId) {
+        restaurantService.deleteRestaurantDish(restaurantId, dishId);
+    }
+
     @PutMapping("{id}")
     public void updateRestaurantDetails(@PathVariable("id") String id, @RequestBody Restaurant restaurant) {
         restaurantService.updateRestaurant(id, restaurant);
@@ -51,4 +72,8 @@ public class RestaurantController {
         restaurantService.deleteRestaurant(id);
     }
 
+    @PutMapping("{id}/dishes/{dishId}")
+    public void updateRestaurantDish(@PathVariable("dishId") String dishId, @RequestBody Dish restDish) {
+        restaurantService.updateRestaurantDish(dishId, restDish);
+    }
 }

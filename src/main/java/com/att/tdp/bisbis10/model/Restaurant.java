@@ -1,5 +1,6 @@
 package com.att.tdp.bisbis10.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.lang.NonNullFields;
 
@@ -13,6 +14,7 @@ public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @Column(nullable = false)
@@ -20,14 +22,20 @@ public class Restaurant {
 
     private List<String> cuisines;
 
-    public Restaurant() {
 
-    }
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Dish> dishes;
+
 
     public Restaurant(String name, Boolean isKosher, List<String> cuisines) {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
+    }
+
+    public Restaurant() {
+
     }
 
     public Long getId() {
@@ -62,5 +70,11 @@ public class Restaurant {
         this.cuisines = cuisines;
     }
 
+    public List<Dish> getDishes() {
+        return dishes;
+    }
 
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
+    }
 }
