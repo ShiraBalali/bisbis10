@@ -27,7 +27,6 @@ public class Restaurant {
     @JsonManagedReference
     private List<Dish> dishes;
 
-
     public Restaurant(String name, Boolean isKosher, List<String> cuisines) {
         this.name = name;
         this.isKosher = isKosher;

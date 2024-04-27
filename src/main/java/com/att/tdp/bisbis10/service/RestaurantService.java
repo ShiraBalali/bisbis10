@@ -4,7 +4,6 @@ import com.att.tdp.bisbis10.model.Dish;
 import com.att.tdp.bisbis10.model.Restaurant;
 
 import java.util.List;
-import java.util.Map;
 
 public interface RestaurantService {
     public void createRestaurant(Restaurant restaurant);
