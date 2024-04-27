@@ -8,5 +8,7 @@ import java.util.List;
 public interface OrderService {
 
     public String createOrder(Order order);
+
     public List<Order> getAllOrders();
+
 }

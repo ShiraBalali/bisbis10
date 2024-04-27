@@ -2,6 +2,7 @@ package com.att.tdp.bisbis10.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.lang.NonNullFields;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public class Restaurant {
     private List<String> cuisines;
 
 
+    private Float averageRating = 0f;
+
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Dish> dishes;
@@ -31,6 +35,7 @@ public class Restaurant {
         this.name = name;
         this.isKosher = isKosher;
         this.cuisines = cuisines;
+        this.averageRating = 0f;
     }
 
     public Restaurant() {
@@ -75,5 +80,13 @@ public class Restaurant {
 
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    public Float getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Float averageRating) {
+        this.averageRating = averageRating;
     }
 }
